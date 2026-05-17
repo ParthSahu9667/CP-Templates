@@ -22,7 +22,9 @@ struct Hashing {
     const int base = 31;
     vector<vector<long long>> hashValues, powersOfBase;
 
-    Hashing(const vector<int> &a) {
+    Hashing () {}
+
+    Hashing(const string &a) {
         s = a;
         n = s.size();
         int primes = hashPrimes.size();
@@ -34,12 +36,12 @@ struct Hashing {
             powersOfBase[i][0] = 1;
             for (int j = 1; j <= n; j++) {
                 powersOfBase[i][j] = (powersOfBase[i][j - 1] * base) % hashPrimes[i];
-                hashValues[i][j] = (hashValues[i][j - 1] * base + s[j - 1]) % hashPrimes[i];
+                hashValues[i][j] = (hashValues[i][j - 1] * base + (s[j - 1] - 'a')) % hashPrimes[i];
             }
         }
     }
 
-    inline int substringHash(int l, int r) {
+    inline uint64_t substringHash(int l, int r) {
         int len = r - l + 1;
         long long h1 = (hashValues[0][r + 1] - (hashValues[0][l] * powersOfBase[0][len]) % hashPrimes[0] + hashPrimes[0]) % hashPrimes[0];
         long long h2 = (hashValues[1][r + 1] - (hashValues[1][l] * powersOfBase[1][len]) % hashPrimes[1] + hashPrimes[1]) % hashPrimes[1];
