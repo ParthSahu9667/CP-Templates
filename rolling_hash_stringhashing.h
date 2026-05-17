@@ -51,13 +51,13 @@ struct Hashing {
             }
         }
     }
+
  
     inline int substringHash(int l, int r) {
-        int h1 = mod_sub(hashValues[0][r], (l ? hashValues[0][l - 1] : 0), hashPrimes[0]);
-        h1 = mod_mul(h1, inversePowersOfBase[0][l], hashPrimes[0]);
- 
-        int h2 = mod_sub(hashValues[1][r], (l ? hashValues[1][l - 1] : 0), hashPrimes[1]);
-        h2 = mod_mul(h2, inversePowersOfBase[1][l], hashPrimes[1]);
+        int len = r - l + 1;
+        
+        long long h1 = (hashValues[0][r + 1] - (hashValues[0][l] * powersOfBase[0][len]) % hashPrimes[0] + hashPrimes[0]) % hashPrimes[0];
+        long long h2 = (hashValues[1][r + 1] - (hashValues[1][l] * powersOfBase[1][len]) % hashPrimes[1] + hashPrimes[1]) % hashPrimes[1];
  
         return combineHash(h1, h2);
     }
