@@ -1,7 +1,7 @@
 inline uint64_t combineHash(int h1, int h2) {
     return (uint64_t(h1) << 32) ^ uint64_t(h2);
 }
-int expo(int a, int b, int mod) {
+long long expo(long long a, long long b, long long mod) {
     int res = 1;
     while (b > 0) {
         if (b & 1) res = (res * a) % mod;
